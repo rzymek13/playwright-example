@@ -1,6 +1,7 @@
 package pages;
 
 import com.microsoft.playwright.Page;
+import com.microsoft.playwright.options.WaitForSelectorState;
 import lombok.Getter;
 
 public class HomePage {
@@ -8,23 +9,27 @@ public class HomePage {
     private final String coockieAcceptButton = "#didomi-notice-agree-button";
     private final String devicesDropdownMenuButton = "//button[text()=\"Urządzenia\"]";
     private final String smartwatchItemInDevicesDropdownMenu = "//*[@data-ga-ea=\"nav-links - Urządzenia/Bez abonamentu/Smartwatche\"]";
-    @Getter
-    private final String numberOfProductsInCart = "//div[@class=\"ml-auto flex lg:mt-auto group-[.shrank-header]/header:lg:mt-0\"]//a[@data-ma=\"menu-basket\"]//div";
+    @Getter private final String numberOfProductsInCart = "//div[@class=\"ml-auto flex lg:mt-auto group-[.shrank-header]/header:lg:mt-0\"]//a[@data-ma=\"menu-basket\"]//div";
 
     public HomePage(Page page) {
         this.page = page;
     }
 
-    public void open() {
+    public void open() throws InterruptedException {
         page.navigate("https://www.t-mobile.pl");
     }
 
     public void acceptCookies() {
-        if (page.isVisible(coockieAcceptButton)) {
-        page.locator(coockieAcceptButton).click();
-        } else {
-            System.out.println("There are no cookies on the website.");
-        }
+            try {
+                page.waitForSelector(coockieAcceptButton, new Page.WaitForSelectorOptions()
+                        .setTimeout(10000)
+                        .setState(WaitForSelectorState.VISIBLE));
+
+                page.click("#didomi-notice-agree-button");
+                System.out.println("Ciasteczka zaakceptowane.");
+            } catch (Exception e) {
+                System.out.println("coockies not found or accepted" + e.getMessage());
+            }
     }
     public void chooseSmartwatchesPage() {
         page.locator(devicesDropdownMenuButton).click();

@@ -11,7 +11,7 @@ public class HomeTest extends BaseTest {
 
     @Test()
     @Tag("first")
-    public void verifyPricesAreTheSameAfterAddingProductToCart() {
+    public void verifyPricesAreTheSameAfterAddingProductToCart() throws InterruptedException {
         homePage.open();
         homePage.acceptCookies();
         homePage.chooseSmartwatchesPage();
