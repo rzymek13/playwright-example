@@ -15,7 +15,7 @@ public class HomePage {
         this.page = page;
     }
 
-    public void open() throws InterruptedException {
+    public void open(){
         page.navigate("https://www.t-mobile.pl");
     }
 
@@ -26,9 +26,9 @@ public class HomePage {
                         .setState(WaitForSelectorState.VISIBLE));
 
                 page.click("#didomi-notice-agree-button");
-                System.out.println("Ciasteczka zaakceptowane.");
+                System.out.println("cookies accepted");
             } catch (Exception e) {
-                System.out.println("coockies not found or accepted" + e.getMessage());
+                System.out.println("cookies not found or accepted" + e.getMessage());
             }
     }
     public void chooseSmartwatchesPage() {

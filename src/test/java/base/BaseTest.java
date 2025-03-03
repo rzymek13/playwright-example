@@ -37,12 +37,15 @@ public class BaseTest {
     @BeforeMethod
     public void setUp() {
         String browserName = ConfigLoader.getProperty("browserName");
+        boolean isHeadlessModeEnabled = Boolean.parseBoolean(ConfigLoader.getProperty("headless"));
         Playwright pw = playwright.get();
-        if (browserName.equals("firefox")) {
-            browser.set(pw.firefox()
-                    .launch(new BrowserType.LaunchOptions().setHeadless(false)));
+        if (browserName.equals("edge")) {
+            browser.set(pw.chromium().launch(new BrowserType.LaunchOptions()
+                    .setHeadless(isHeadlessModeEnabled)
+                    .setChannel("msedge")));
         }else if (browserName.equals("chrome")){
-            browser.set(pw.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false)));
+            browser.set(pw.chromium().launch(new BrowserType.LaunchOptions()
+                    .setHeadless(isHeadlessModeEnabled)));
         }
         context.set(browser.get().newContext(new Browser.NewContextOptions()
                 .setViewportSize(1920, 1080)
