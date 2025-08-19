@@ -14,7 +14,6 @@ public class HomeTest extends BaseTest {
     public void verifyPricesAreTheSameAfterAddingProductToCart() {
         homePage.open();
         homePage.acceptCookies();
-        page.get().pause();
         homePage.chooseSmartwatchesPage();
         smartwatchesPage.clickOnFirstProduct();
         productPage.captureProductPrice();

@@ -49,7 +49,7 @@ public class BaseTest {
         }
         context.set(browser.get().newContext(new Browser.NewContextOptions()
                 .setViewportSize(1920, 1080)
-                .setRecordVideoDir(Paths.get("resources/videos"))
+                .setRecordVideoDir(Paths.get("src/test/resources/videos"))
                 .setRecordVideoSize(1920,1080)));
 
         context.get().tracing().start(new Tracing.StartOptions()
